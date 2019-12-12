@@ -31,6 +31,7 @@ import java.util.ArrayList;
  * 完成的还是比较简单的效果，标签的2种样式，是通过一个布局的隐藏显示实现的切换
  * 标签的长宽等未考虑 等比缩放的说法 处理边界越界的情况 暂时比较死板，默认按标签的最高最宽处理
  * 微调了 circleIndicator 移除了指示器的touch事件，setSupportTouch(false) 默认true
+ * v1.1 修复了页面第二次进入时，viewPager高度恢复到xml高度的bug
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -168,6 +169,9 @@ public class MainActivity extends AppCompatActivity {
      * @param defaultHeight
      */
     private void initViewPager(final int defaultHeight) {
+        ViewGroup.LayoutParams vp_pic_tagLayoutParams = vp_pic_tag.getLayoutParams();
+        vp_pic_tagLayoutParams.height=defaultHeight;
+        vp_pic_tag.setLayoutParams(vp_pic_tagLayoutParams);
         vp_pic_tag.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
